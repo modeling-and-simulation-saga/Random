@@ -12,7 +12,7 @@ import myLib.utils.FileIO;
  *
  * @author tadaki
  */
-public class Uniform implements RandomGenerator{
+public class Uniform extends java.util.Random {
 
     private final double min;
     private final double max;
@@ -24,17 +24,25 @@ public class Uniform implements RandomGenerator{
      * @param max 上限
      */
     public Uniform(double min, double max) {
+        super();
+        this.min = min;
+        this.max = max;
+    }
+
+    public Uniform(double min, double max, long seed) {
+        super(seed);
         this.min = min;
         this.max = max;
     }
 
     /**
      * 乱数を一つ生成
-     * @return 
+     *
+     * @return
      */
     @Override
-    public double getNext() {
-        return (max - min) * Math.random() + min;
+    public double nextDouble() {
+        return (max - min) * super.nextDouble() + min;
     }
 
     /**
@@ -51,13 +59,13 @@ public class Uniform implements RandomGenerator{
         //乱数をn個生成し、ヒストグラムへ登録
         Uniform uniform = new Uniform(min, max);
         for (int i = 0; i < numSamples; i++) {
-            double x = uniform.getNext();
+            double x = uniform.nextDouble();
             histogram.put(x);
         }
         //ヒストグラムを出力
         List<Point2D.Double> plist = histogram.calculateFrequency();
-        String filename =Uniform.class.getSimpleName()+"-output.txt";
-        try (BufferedWriter out = FileIO.openWriter(filename)) {
+        String filename = Uniform.class.getSimpleName() + "-output.txt";
+        try ( BufferedWriter out = FileIO.openWriter(filename)) {
             for (Point2D.Double p : plist) {
                 FileIO.writeSSV(out, p.x, p.y);
             }

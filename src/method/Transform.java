@@ -7,7 +7,7 @@ import java.util.function.DoubleFunction;
  *
  * @author tadaki
  */
-public class Transform implements RandomGenerator {
+public class Transform extends java.util.Random {
 
     //確率分布の逆関数
     private final DoubleFunction<Double> invProDist;
@@ -18,6 +18,12 @@ public class Transform implements RandomGenerator {
      * @param invProDist 確率分布の逆関数
      */
     public Transform(DoubleFunction<Double> invProDist) {
+        super();
+        this.invProDist = invProDist;
+    }
+
+    public Transform(DoubleFunction<Double> invProDist, long seed) {
+        super(seed);
         this.invProDist = invProDist;
     }
 
@@ -27,9 +33,9 @@ public class Transform implements RandomGenerator {
      * @return 生成された乱数
      */
     @Override
-    public double getNext() {
-
-
+    public double nextDouble() {
+        double x = super.nextDouble();
+        return invProDist.apply(x);
     }
 
 }
