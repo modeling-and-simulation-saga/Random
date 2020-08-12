@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.List;
-import method.RandomGenerator;
+import java.util.Random;
 import myLib.utils.FileIO;
 
 /**
@@ -26,9 +26,9 @@ public class GenerateSample {
         histogram = new Histogram(min, max, numBin);
     }
 
-    public void generate(RandomGenerator random) {
+    public void generate(Random random) {
         for (int i = 0; i < numSamples; i++) {
-            double x = random.getNext();
+            double x = random.nextDouble();
             histogram.put(x);
         }
     }

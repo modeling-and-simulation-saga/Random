@@ -33,7 +33,7 @@ public class Exp {
         //乱数生成
         sample.generate(transform);
         //出力
-        sample.outputHistogram("ext.txt");
+        sample.outputHistogram("exp.txt");
 
     }
     
