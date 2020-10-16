@@ -53,8 +53,10 @@ public class Rejection extends java.util.Random {
             //二つの乱数
             double x = super.nextDouble();
             double y = super.nextDouble();
-            nextRandom = (max - min) * x + min;
-            done = (y < probDensity.apply(nextRandom) / maxOfFunction);
+            //nextRandomを作る
+
+            //nextRandomを受理することができるかを判定する
+
         }
         return nextRandom;
     }
